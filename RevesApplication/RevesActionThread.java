@@ -57,6 +57,17 @@ public class RevesActionThread extends ActionThread
 
         // ADD INITIALIZATION CODE HERE
 
+        //Create initial poles
+        a = new Pole( "A", disks);
+        b = new Pole( "B", disks);
+        c = new Pole( "C", disks);
+        d = new Pole( "D", disks);
+
+        //Adding diks to pole a
+        for(int i = disks; i >= 1; i--){
+            a.addDisk( new Disk(i) );
+        }
+
     }
         
 
