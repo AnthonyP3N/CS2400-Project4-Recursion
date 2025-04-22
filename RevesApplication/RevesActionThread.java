@@ -75,7 +75,7 @@ public class RevesActionThread extends ActionThread
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
 
-       towersOfHanoi(disks, a, d, b);
+        RevesPuzzle(disks, a, d, b, c);
     }
 
     /**
@@ -114,6 +114,29 @@ public class RevesActionThread extends ActionThread
         moveDisk(source, goal);
         towersOfHanoi(n - 1, two, goal, source);
 
+    }
+
+    public void RevesPuzzle(int n, Pole source, Pole goal, Pole two, Pole three){
+        if( n == 0 ){
+            return;
+        }else if( n == 1 ){
+            moveDisk(source, goal);
+        }else{
+            int k = computeK(n);
+            int total = n - k;
+
+            RevesPuzzle(total, source, two, goal, three);
+            towersOfHanoi(k, source, goal, three);
+            RevesPuzzle(total, two, goal, source, three);
+        }
+    }
+
+    public int computeK(int n){
+        int k = 1;
+        while(( k * (k +1)) / 2 < n){
+            k++;
+        }
+        return k;
     }
     
     /***************************************************************************
