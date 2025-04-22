@@ -75,9 +75,7 @@ public class RevesActionThread extends ActionThread
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
 
-        moveDisk(a,c);
-        moveDisk(a,b);
-        moveDisk(a,d);
+       towersOfHanoi(disks, a, d, b);
     }
 
     /**
@@ -106,6 +104,17 @@ public class RevesActionThread extends ActionThread
 
     
     // ADD METHODS HERE
+
+    public void towersOfHanoi(int n, Pole source, Pole goal, Pole two) {
+        if (n == 0){
+            return;
+        }
+
+        towersOfHanoi(n - 1, source, two, goal);
+        moveDisk(source, goal);
+        towersOfHanoi(n - 1, two, goal, source);
+
+    }
     
     /***************************************************************************
      * *************************************************************************
