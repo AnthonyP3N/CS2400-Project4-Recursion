@@ -1,6 +1,4 @@
 import animatedapp.*;
-import java.awt.*;
-import javax.swing.*;
 
 /**
  * This animated application shows a solution to Reve's problem

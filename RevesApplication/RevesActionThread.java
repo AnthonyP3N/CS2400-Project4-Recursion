@@ -57,12 +57,25 @@ public class RevesActionThread extends ActionThread
 
         // ADD INITIALIZATION CODE HERE
 
+        //Create initial poles
+        a = new Pole( "A", disks);
+        b = new Pole( "B", disks);
+        c = new Pole( "C", disks);
+        d = new Pole( "D", disks);
+
+        //Adding diks to pole a
+        for(int i = disks; i >= 1; i--){
+            a.addDisk( new Disk(i) );
+        }
+
     }
         
 
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
+
+        RevesPuzzle(disks, a, d, b, c);
     }
 
     /**
@@ -77,6 +90,9 @@ public class RevesActionThread extends ActionThread
         
         // ADD CODE HERE TO MOVE A DISK FROM ONE POLE TO THE OTHER
 
+        toMove = from.removeDisk();
+        to.addDisk(toMove);
+
         movesMade++;
         moveString = "Move #" + movesMade 
                         + ": Moved disk " + toMove.getSize() 
@@ -88,6 +104,40 @@ public class RevesActionThread extends ActionThread
 
     
     // ADD METHODS HERE
+
+    public void towersOfHanoi(int n, Pole source, Pole goal, Pole two) {
+        if (n == 0){
+            return;
+        }
+
+        towersOfHanoi(n - 1, source, two, goal);
+        moveDisk(source, goal);
+        towersOfHanoi(n - 1, two, goal, source);
+
+    }
+
+    public void RevesPuzzle(int n, Pole source, Pole goal, Pole two, Pole three){
+        if( n == 0 ){
+            return;
+        }else if( n == 1 ){
+            moveDisk(source, goal);
+        }else{
+            int k = computeK(n);
+            int total = n - k;
+
+            RevesPuzzle(total, source, two, goal, three);
+            towersOfHanoi(k, source, goal, three);
+            RevesPuzzle(total, two, goal, source, three);
+        }
+    }
+
+    public int computeK(int n){
+        int k = 1;
+        while(( k * (k +1)) / 2 < n){
+            k++;
+        }
+        return k;
+    }
     
     /***************************************************************************
      * *************************************************************************
